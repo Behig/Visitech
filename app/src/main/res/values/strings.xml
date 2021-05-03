@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Visitech</string>
+    <string name="Welcome">Welcome To</string>
+    <string name="list">List Of Patients</string>
+    <string name="info">Info</string>
+    <string name="add_patient">Add New Patient</string>
+    <string name="user">User</string>
 </resources>
