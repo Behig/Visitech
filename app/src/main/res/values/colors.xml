@@ -8,8 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="welcomeColor">#BFC3CF</color>
-    <color name="downColor">#232E59</color>
-    <color name="upColor">#020A22</color>
+    <color name="upDownColor">#012E26</color>
     <color name="shadow">#616161</color>
     <color name="buttonBackground">#0277BD</color>
+    <color name="menuColor">#76BC7B</color>
+    <color name="background">#D2FBD8</color>
 </resources>
