@@ -6,9 +6,10 @@
     <string name="add_patient">Add New Patient</string>
     <string name="user">User</string>
     <string name="home">Home</string>
-    <string name="infoText">Hello everyone,\n\nVisitech is a project developed by Mohammad Goudarzi Moghadam during the course of \"Medizinische IT-Anwendungen\" at the Leibniz University Hannover. This application is an initial version of the concept of an application, helping the staff of a hospital with their visits from patients. The application is still in development.\nStay tuned... :)</string>
+    <string name="infoText">Hello everyone,\n\nVisitech is a project developed by Mohammad Goudarzi Moghadam during the course of \"Medizinische IT-Anwendungen\" at the Leibniz University Hannover.\nVisitech is the concept of an application, which helps the staff of a hospital with their visits from patients. The application is still in development.\n\nStay tuned... :)</string>
     <string name="userName">Username</string>
     <string name="password">Password</string>
     <string name="loginBtn">Login</string>
     <string name="forgot">Forgot Password!</string>
+    <string name="tmp">Line1</string>
 </resources>

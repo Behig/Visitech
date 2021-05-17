@@ -41,7 +41,7 @@ public class UserFragment extends Fragment {
     }
 
     public void showToast(){
-        Toast toastl = Toast.makeText(getActivity(), "Check the next update for login :)", Toast.LENGTH_SHORT);
+        Toast toastl = Toast.makeText(getActivity(), "Check out the next update for login :)", Toast.LENGTH_SHORT);
         toastl.setGravity(Gravity.CENTER,0,0);
         toastl.show();
     }

@@ -1,14 +1,15 @@
 package com.example.visitech;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Patient {
     private String firstName;
     private String lastName;
-    private Date birthday;
-    private Date admissionDate;
+    private Calendar birthday;
+    private Calendar admissionDate;
     private List<Checkup> checkups;
     private List<Medication> medications;
     private String sex;
@@ -16,7 +17,7 @@ public class Patient {
     private int age;
 
 
-    public Patient(String firstName, String lastName, Date birthday, Date admissionDate, List<Checkup> checkups, List<Medication> medications, String sex, int bedNr, int age){
+    public Patient(String firstName, String lastName, Calendar birthday, Calendar admissionDate, List<Checkup> checkups, List<Medication> medications, String sex, int bedNr, int age){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
@@ -30,7 +31,7 @@ public class Patient {
         this.age = age;
     }
 
-    public Date getBirthday() {
+    public Calendar getBirthday() {
         return birthday;
     }
 
@@ -62,7 +63,7 @@ public class Patient {
         return sex;
     }
 
-    public Date getAdmissionDate() {
+    public Calendar getAdmissionDate() {
         return admissionDate;
     }
 
@@ -74,7 +75,7 @@ public class Patient {
         this.bedNr = bedNr;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Calendar birthday) {
         this.birthday = birthday;
     }
 
@@ -98,13 +99,13 @@ public class Patient {
         this.sex = sex;
     }
 
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(Calendar admissionDate) {
         this.admissionDate = admissionDate;
     }
 
     @Override
     public String toString() {
-        return String.format("BedNr.%d Name:%s", this.getBedNr(), this.getLastName());
+        return String.format("Bednumber: %d   Name: %s", this.getBedNr(), this.getLastName());
     }
 
 }

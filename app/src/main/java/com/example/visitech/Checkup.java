@@ -1,22 +1,23 @@
 package com.example.visitech;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Checkup {
-    private Date date;
+    private Calendar date;
     private Doctor doctor;
     private String description;
     private String findings;
 
-    public Checkup(Date date, Doctor doctor, String description, String findings){
+    public Checkup(Calendar date, Doctor doctor, String description, String findings){
         this.date = date;
         this.description = description;
         this.doctor = doctor;
         this.findings = findings;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
@@ -32,7 +33,7 @@ public class Checkup {
         this.findings = findings;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
@@ -51,7 +52,7 @@ public class Checkup {
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        String strDate = formatter.format(this.getDate());
+        String strDate = formatter.format(this.getDate().getTime());
         return String.format("Done by %s on %s", this.getDoctor(), strDate);
     }
 }
