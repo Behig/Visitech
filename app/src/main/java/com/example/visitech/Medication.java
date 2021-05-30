@@ -1,6 +1,11 @@
 package com.example.visitech;
 
-public class Medication {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Medication implements Parcelable {
     private String name;
     private double dose;
     private Day weekDay;
@@ -10,6 +15,24 @@ public class Medication {
         this.dose = dose;
         this.weekDay = weekDay;
     }
+
+    protected Medication(Parcel in) {
+        name = in.readString();
+        dose = in.readDouble();
+        weekDay = Day.valueOf(in.readString());
+    }
+
+    public static final Creator<Medication> CREATOR = new Creator<Medication>() {
+        @Override
+        public Medication createFromParcel(Parcel in) {
+            return new Medication(in);
+        }
+
+        @Override
+        public Medication[] newArray(int size) {
+            return new Medication[size];
+        }
+    };
 
     public Day getWeekDay() {
         return weekDay;
@@ -38,5 +61,17 @@ public class Medication {
     @Override
     public String toString(){
         return String.format("%f dose of %s", this.getDose(), this.getName());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeDouble(dose);
+        dest.writeString(this.getWeekDay().name());
     }
 }

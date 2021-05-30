@@ -1,15 +1,19 @@
 package com.example.visitech;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Patient {
+public class Patient implements Parcelable{
     private String firstName;
     private String lastName;
-    private Calendar birthday;
-    private Calendar admissionDate;
+    private String[] birthday;
+    private String[] admissionDate;
     private List<Checkup> checkups;
     private List<Medication> medications;
     private String sex;
@@ -17,7 +21,7 @@ public class Patient {
     private int age;
 
 
-    public Patient(String firstName, String lastName, Calendar birthday, Calendar admissionDate, List<Checkup> checkups, List<Medication> medications, String sex, int bedNr, int age){
+    public Patient(String firstName, String lastName, String[] birthday, String[] admissionDate, List<Checkup> checkups, List<Medication> medications, String sex, int bedNr, int age){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
@@ -31,7 +35,31 @@ public class Patient {
         this.age = age;
     }
 
-    public Calendar getBirthday() {
+    protected Patient(Parcel in) {
+        firstName = in.readString();
+        lastName = in.readString();
+        birthday = in.createStringArray();
+        admissionDate = in.createStringArray();
+        checkups = in.createTypedArrayList(Checkup.CREATOR);
+        medications = in.createTypedArrayList(Medication.CREATOR);
+        sex = in.readString();
+        bedNr = in.readInt();
+        age = in.readInt();
+    }
+
+    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
+        @Override
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        @Override
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
+
+    public String[] getBirthday() {
         return birthday;
     }
 
@@ -63,7 +91,7 @@ public class Patient {
         return sex;
     }
 
-    public Calendar getAdmissionDate() {
+    public String[] getAdmissionDate() {
         return admissionDate;
     }
 
@@ -75,7 +103,7 @@ public class Patient {
         this.bedNr = bedNr;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(String[] birthday) {
         this.birthday = birthday;
     }
 
@@ -99,7 +127,7 @@ public class Patient {
         this.sex = sex;
     }
 
-    public void setAdmissionDate(Calendar admissionDate) {
+    public void setAdmissionDate(String[] admissionDate) {
         this.admissionDate = admissionDate;
     }
 
@@ -108,4 +136,21 @@ public class Patient {
         return String.format("Bednumber: %d   Name: %s", this.getBedNr(), this.getLastName());
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeStringArray(birthday);
+        dest.writeStringArray(admissionDate);
+        dest.writeTypedList(checkups);
+        dest.writeTypedList(medications);
+        dest.writeString(sex);
+        dest.writeInt(bedNr);
+        dest.writeInt(age);
+    }
 }

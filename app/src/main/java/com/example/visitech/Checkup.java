@@ -1,23 +1,46 @@
 package com.example.visitech;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Checkup {
-    private Calendar date;
+public class Checkup implements Parcelable {
+    private String[] date;
     private Doctor doctor;
     private String description;
     private String findings;
 
-    public Checkup(Calendar date, Doctor doctor, String description, String findings){
+    public Checkup(String[] date, Doctor doctor, String description, String findings){
         this.date = date;
         this.description = description;
         this.doctor = doctor;
         this.findings = findings;
     }
 
-    public void setDate(Calendar date) {
+    protected Checkup(Parcel in) {
+        date = in.createStringArray();
+        doctor = in.readParcelable(Doctor.class.getClassLoader());
+        description = in.readString();
+        findings = in.readString();
+    }
+
+    public static final Creator<Checkup> CREATOR = new Creator<Checkup>() {
+        @Override
+        public Checkup createFromParcel(Parcel in) {
+            return new Checkup(in);
+        }
+
+        @Override
+        public Checkup[] newArray(int size) {
+            return new Checkup[size];
+        }
+    };
+
+    public void setDate(String[] date) {
         this.date = date;
     }
 
@@ -33,7 +56,7 @@ public class Checkup {
         this.findings = findings;
     }
 
-    public Calendar getDate() {
+    public String[] getDate() {
         return date;
     }
 
@@ -51,8 +74,19 @@ public class Checkup {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        String strDate = formatter.format(this.getDate().getTime());
-        return String.format("Done by %s on %s", this.getDoctor(), strDate);
+        return String.format("Done by \"%s\" on %s.%s.%s", this.getDoctor(), this.getDate()[2], this.getDate()[1], this.getDate()[0]);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(date);
+        dest.writeParcelable(doctor, flags);
+        dest.writeString(description);
+        dest.writeString(findings);
     }
 }

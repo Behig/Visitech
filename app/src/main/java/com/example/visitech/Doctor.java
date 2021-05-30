@@ -1,6 +1,11 @@
 package com.example.visitech;
 
-public class Doctor {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Doctor implements Parcelable {
     private String firstName;
     private String lastName;
     private int personalnumber;
@@ -10,6 +15,24 @@ public class Doctor {
         this.lastName = lastName;
         this.personalnumber = personalnumber;
     }
+
+    protected Doctor(Parcel in) {
+        firstName = in.readString();
+        lastName = in.readString();
+        personalnumber = in.readInt();
+    }
+
+    public static final Creator<Doctor> CREATOR = new Creator<Doctor>() {
+        @Override
+        public Doctor createFromParcel(Parcel in) {
+            return new Doctor(in);
+        }
+
+        @Override
+        public Doctor[] newArray(int size) {
+            return new Doctor[size];
+        }
+    };
 
     public String getLastName() {
         return lastName;
@@ -38,5 +61,17 @@ public class Doctor {
     @Override
     public String toString() {
         return String.format("%s, %s [%d]", this.getLastName(), this.getFirstName(), this.getPersonalnumber());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeInt(personalnumber);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.visitech;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +21,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements MyAdapter.OnPatientListener {
+    private static final String TAG = "ListFragment";
     public List<Patient> patients;
     private RecyclerView recyclerView;
-    public myAdapter adapter;
+    public MyAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Nullable
@@ -52,7 +53,7 @@ public class ListFragment extends Fragment {
     private void buildRecyclerView(View v){
         recyclerView = v.findViewById(R.id.recyclerview);
         mLayoutManager = new LinearLayoutManager(getContext());
-        adapter = new myAdapter(patients);
+        adapter = new MyAdapter(patients, this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -67,13 +68,13 @@ public class ListFragment extends Fragment {
         if(patients == null){
             Log.d("PatientsActivity", "shit");
             patients = new ArrayList<>();
-            Patient p = makePatient();
+            Patient p = makeSamplePatient();
             patients.add(0, p);
         }
     }
 
-    public Patient makePatient(){
-        Calendar c = new GregorianCalendar(1997, 3, 3);
+    public Patient makeSamplePatient(){
+        String[] c = {"1997", "06", "18"};
         Medication m = new Medication("Asta", 23, Day.FRIDAY);
         List<Medication> medic = new ArrayList<>();
         medic.add(m);
@@ -82,5 +83,14 @@ public class ListFragment extends Fragment {
         List<Checkup> checks = new ArrayList<>();
         checks.add(check);
         return new Patient("Behnam", "Goudarzi", c, c, checks, medic, "male", 2, 88);
+    }
+
+    @Override
+    public void onPatientClick(int position) {
+        Intent intent = new Intent(getActivity(), SinglePatientActivity.class);
+        intent.putExtra("selectedPatient", patients.get(position));
+        startActivity(intent);
+        ((Activity) getActivity()).overridePendingTransition(0, 0);
+        //Log.d(TAG, "onPatientClick: clicked" + position);
     }
 }

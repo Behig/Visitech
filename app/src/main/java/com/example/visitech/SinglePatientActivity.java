@@ -3,36 +3,35 @@ package com.example.visitech;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-public class PatientsActivity extends AppCompatActivity {
+public class SinglePatientActivity extends AppCompatActivity {
+    Intent intent;
+    public Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patients);
+        setContentView(R.layout.activity_single_patient);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, new ListFragment()).commit();
+        intent = getIntent();
+        patient = intent.getParcelableExtra("selectedPatient");
+
+        Fragment initFragment = new OptionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedPatient", patient);
+        initFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.single_patient_fragment_container, initFragment).commit();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -57,7 +56,7 @@ public class PatientsActivity extends AppCompatActivity {
                         default:
                             selectFragment = new HomeFragment();
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, selectFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_patient_fragment_container, selectFragment).commit();
                     return true;
                 }
             };
