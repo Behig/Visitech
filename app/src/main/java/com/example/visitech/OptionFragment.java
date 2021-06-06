@@ -53,6 +53,7 @@ public class OptionFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("selectedCheckups", checkups);
                 bundle.putInt("bedNumber", patient.getBedNr());
+                bundle.putParcelable("selectedPatient", patient);
                 culFragment.setArguments(bundle);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abhaya_libre_medium"
-        android:text="@string/chaeckups"
+        android:text="@string/checkups"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="80sp"

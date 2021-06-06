@@ -36,6 +36,13 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         View v = inflater.inflate(R.layout.fragment_list, container,false);
 
         showListOfPatients();
+        Log.d(TAG, "changing 1");
+        /*if(patients == null){
+            Log.d(TAG, "changing 4");
+        }*/
+        //change(patients.get(0));
+        Log.d(TAG, "changing 2");
+        //showListOfPatients();
         buildRecyclerView(v);
 
         return v;
@@ -61,19 +68,22 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
     private void showListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("sharedPatients", null);
+        String json = sharedPreferences.getString("patientList", null);
         Type type = new TypeToken<ArrayList<Patient>>(){}.getType();
         patients = gson.fromJson(json, type);
 
         if(patients == null){
             Log.d("PatientsActivity", "shit");
             patients = new ArrayList<>();
-            Patient p = makeSamplePatient();
-            patients.add(0, p);
+            //Patient p = makeSamplePatient();
+            //patients.add(p);
+            //change(p);
+            //saveListOfPatients();
+            //adapter.notifyItemInserted(patients.size());
         }
     }
 
-    public Patient makeSamplePatient(){
+    /*public Patient makeSamplePatient(){
         String[] c = {"1997", "06", "18"};
         Medication m = new Medication("Asta", 23, Day.FRIDAY);
         List<Medication> medic = new ArrayList<>();
@@ -83,7 +93,7 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         List<Checkup> checks = new ArrayList<>();
         checks.add(check);
         return new Patient("Behnam", "Goudarzi", c, c, checks, medic, "male", 2, 88);
-    }
+    }*/
 
     @Override
     public void onPatientClick(int position) {
@@ -93,4 +103,13 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         ((Activity) getActivity()).overridePendingTransition(0, 0);
         //Log.d(TAG, "onPatientClick: clicked" + position);
     }
+
+    /*private void change(Patient p){
+        String[] c = {"2021", "06", "18"};
+        p.getMedications().set(0, new Medication("Amoxil", 23, Day.FRIDAY));
+        p.getCheckups().set(0, new Checkup(c, new Doctor("Max", "Plank", 6555), "Eyes, mouth and thyroid", "Pupils laterally equal in size with inconspicuous direct and\n" +
+                "consensual light reaction. Mucous membrane of the mouth pink, tongue moist and without coatings. Nuchal, cervical, axillary and inguinal lymph nodes not enlarged. palpable with normal displacement. Thyroid gland not enlarged palpable, normal displacement during swallowing."));
+        Log.d(TAG, "changing 3");
+        saveListOfPatients();
+    }*/
 }

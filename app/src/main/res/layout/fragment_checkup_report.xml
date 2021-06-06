@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/menuColor"
     android:backgroundTintMode="multiply"
     tools:context=".SinglePatientActivity">
 
@@ -13,15 +13,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abhaya_libre_medium"
-        android:text="@string/chaeckups"
+        android:text="Checkup"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="80sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/scrollReport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -35,14 +36,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="74dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <ScrollView
         android:id="@+id/scrollReport"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="219dp"
-        android:layout_marginBottom="90dp"
+        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,54 +53,85 @@
             android:id="@+id/linearReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:background="@color/background"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewDescriptionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/areas"
                 android:textAlignment="textStart"
-                android:layout_marginLeft="30dp"
-                android:text="@string/description"
-                android:textSize="40sp"
                 android:textColor="@color/black"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:layout_marginBottom="90dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:textSize="40sp"
-                android:textColor="@color/black" />
+                android:layout_marginBottom="90dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/textViewFindingsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
+                android:layout_marginStart="30dp"
                 android:text="@string/findings"
-                android:textSize="40sp"
-                android:layout_marginLeft="30dp"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewFindings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="90dp"
-                android:layout_marginLeft="30dp"
-                android:textSize="40sp"
-                android:textColor="@color/black" />
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
 
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.832" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewDoc"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.825" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

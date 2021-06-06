@@ -14,8 +14,8 @@
     <string name="tmp">Line1</string>
     <string name="patients">Patients</string>
     <string name="medications">Medications</string>
-    <string name="chaeckups">Checkups</string>
-    <string name="description">Description:</string>
+    <string name="checkups">Checkups</string>
+    <string name="areas">Areas:</string>
     <string name="findings">Findings:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

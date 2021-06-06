@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ public class CheckupListFragment extends Fragment implements MyCheckupAdapter.On
     private static final String TAG = "CheckupListFragment";
     public List<Checkup> checkups;
     private int bedNr;
+    private Patient patient;
     private RecyclerView recyclerView;
     private MyCheckupAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -32,10 +37,13 @@ public class CheckupListFragment extends Fragment implements MyCheckupAdapter.On
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_checkup_list, container, false);
+        setHasOptionsMenu(true);
 
         TextView title = (TextView) v.findViewById(R.id.textViewcheckup);
         bedNr = getArguments().getInt("bedNumber");
         title.setText("Checkups Bednumber " + bedNr);
+
+        patient = getArguments().getParcelable("selectedPatient");
 
         checkups = getArguments().getParcelableArrayList("selectedCheckups");
         if(checkups == null){
@@ -55,13 +63,33 @@ public class CheckupListFragment extends Fragment implements MyCheckupAdapter.On
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.top_menu, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Fragment newCheckupFragment = new NewCheckupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedPatientNewCheckup", patient);
+        newCheckupFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.single_patient_fragment_container, newCheckupFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        return true;
+        //return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onCheckupClick(int position) {
         Fragment repFragment = new CheckupReportFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("selectedCheckup", checkups.get(position));
+        bundle.putParcelable("selectedPatient", patient);
         repFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

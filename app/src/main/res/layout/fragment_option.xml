@@ -45,7 +45,7 @@
         android:layout_width="560dp"
         android:layout_height="185dp"
         android:background="@drawable/bbackground"
-        android:text="@string/chaeckups"
+        android:text="@string/checkups"
         android:textColor="@color/white"
         android:textSize="50sp"
         android:textStyle="bold"

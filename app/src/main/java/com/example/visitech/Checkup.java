@@ -11,12 +11,12 @@ import java.util.Date;
 public class Checkup implements Parcelable {
     private String[] date;
     private Doctor doctor;
-    private String description;
+    private String areas;
     private String findings;
 
-    public Checkup(String[] date, Doctor doctor, String description, String findings){
+    public Checkup(String[] date, Doctor doctor, String areas, String findings){
         this.date = date;
-        this.description = description;
+        this.areas = areas;
         this.doctor = doctor;
         this.findings = findings;
     }
@@ -24,7 +24,7 @@ public class Checkup implements Parcelable {
     protected Checkup(Parcel in) {
         date = in.createStringArray();
         doctor = in.readParcelable(Doctor.class.getClassLoader());
-        description = in.readString();
+        areas = in.readString();
         findings = in.readString();
     }
 
@@ -44,8 +44,8 @@ public class Checkup implements Parcelable {
         this.date = date;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAreas(String areas) {
+        this.areas = areas;
     }
 
     public void setDoctor(Doctor doctor) {
@@ -64,8 +64,8 @@ public class Checkup implements Parcelable {
         return doctor;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAreas() {
+        return areas;
     }
 
     public String getFindings() {
@@ -86,7 +86,7 @@ public class Checkup implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(date);
         dest.writeParcelable(doctor, flags);
-        dest.writeString(description);
+        dest.writeString(areas);
         dest.writeString(findings);
     }
 }

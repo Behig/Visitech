@@ -2,6 +2,7 @@ package com.example.visitech;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Patient implements Parcelable{
+    private static final String LOG = "Patient";
     private String firstName;
     private String lastName;
     private String[] birthday;
@@ -152,5 +154,26 @@ public class Patient implements Parcelable{
         dest.writeString(sex);
         dest.writeInt(bedNr);
         dest.writeInt(age);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null){
+            Log.d(LOG, "everything bad1");
+            return false;
+        }
+
+        if(getClass() != o.getClass()){
+            Log.d(LOG, "everything bad2");
+            return false;
+        }
+
+        Patient other = (Patient) o;
+
+        if(this.getLastName().equals(other.getLastName())){
+            Log.d(LOG, "everything ok");
+        }
+
+        return this.getLastName().equals(other.getLastName());
     }
 }
