@@ -60,7 +60,7 @@ public class Medication implements Parcelable {
 
     @Override
     public String toString(){
-        return String.format("%f dose of %s", this.getDose(), this.getName());
+        return String.format("%.1f dose of %s", this.getDose(), this.getName());
     }
 
     @Override

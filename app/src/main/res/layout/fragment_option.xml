@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:backgroundTintMode="multiply"
-    tools:context=".MainActivity">
+    tools:context=".SinglePatientActivity">
 
     <TextView
         android:id="@+id/bedNumber"

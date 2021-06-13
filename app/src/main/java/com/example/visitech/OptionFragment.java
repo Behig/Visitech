@@ -1,5 +1,6 @@
 package com.example.visitech;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class OptionFragment extends Fragment {
     private static final String TAG = "OptionFragment";
     Intent intent;
     ArrayList<Checkup> checkups;
+    ArrayList<Medication> medications;
 
     @Nullable
     @Override
@@ -41,8 +43,9 @@ public class OptionFragment extends Fragment {
             Log.d(TAG, "patient is NULL");
         }
         checkups = (ArrayList<Checkup>) patient.getCheckups();
+        medications = (ArrayList<Medication>) patient.getMedications();
         //Toast.makeText(getActivity(), "" + patient.getCheckups().get(0).toString(), Toast.LENGTH_LONG).show();
-        Log.d(TAG, "" + checkups.get(0).toString());
+        //Log.d(TAG, "" + checkups.get(0).toString());
         bednr.setText("Bednumber");
         nr.setText(String.format("%d", patient.getBedNr()));
 
@@ -62,6 +65,17 @@ public class OptionFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 //Toast.makeText(getActivity(), "" + patient.getCheckups().get(0).toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        medic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MedicationActivity.class);
+                intent.putExtra("selectedMedications", medications);
+                intent.putExtra("bedNumber", patient.getBedNr());
+                startActivity(intent);
+                ((Activity) getActivity()).overridePendingTransition(0, 0);
             }
         });
 
