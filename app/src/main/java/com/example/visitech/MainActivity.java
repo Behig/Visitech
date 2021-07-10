@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,24 +29,30 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectefFragment = null;
+                    Fragment selecteFragment = null;
 
                     switch (item.getItemId()){
                         case R.id.nav_home:
-                            selectefFragment = new HomeFragment();
+                            selecteFragment = new HomeFragment();
                             break;
                         case R.id.nav_add:
-                            selectefFragment = new NewPatientFragment();
+                            selecteFragment = new NewPatientFragment();
                             break;
                         case R.id.nav_info:
-                            selectefFragment = new InfoFragment();
+                            selecteFragment = new InfoFragment();
                             break;
                         case R.id.nav_user:
-                            selectefFragment = new UserFragment();
+                            selecteFragment = new UserFragment();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectefFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selecteFragment).commit();
                     return true;
                 }
             };
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        //super.onBackPressed();
+    }
 }

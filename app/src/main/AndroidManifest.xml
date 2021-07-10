@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Visitech">
-        <activity android:name=".MedicationActivity"/>
-        <activity android:name=".SinglePatientActivity"></activity>
+        <activity android:name=".NewMedicationActivity"></activity>
+        <activity android:name=".MedicationActivity" />
+        <activity android:name=".SinglePatientActivity" />
         <activity android:name=".PatientsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

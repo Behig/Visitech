@@ -61,12 +61,11 @@ public class CheckupReportFragment extends Fragment {
         emailFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.single_patient_fragment_container, emailFragment);
+        fragmentTransaction.replace(R.id.single_patient_fragment_container, emailFragment, "EMAIL");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         Log.d(TAG, "on Email Fragment");
         return true;
-        //return super.onOptionsItemSelected(item);
     }
 
 }

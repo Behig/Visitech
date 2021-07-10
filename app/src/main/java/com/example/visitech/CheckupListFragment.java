@@ -76,12 +76,11 @@ public class CheckupListFragment extends Fragment implements MyCheckupAdapter.On
         newCheckupFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.single_patient_fragment_container, newCheckupFragment);
+        fragmentTransaction.replace(R.id.single_patient_fragment_container, newCheckupFragment, "NEWCHECKUP");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         return true;
-        //return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -93,7 +92,7 @@ public class CheckupListFragment extends Fragment implements MyCheckupAdapter.On
         repFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.single_patient_fragment_container, repFragment);
+        fragmentTransaction.replace(R.id.single_patient_fragment_container, repFragment, "REPORT");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         Log.d(TAG, "onCheckupClick: clicked" + position);

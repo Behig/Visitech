@@ -37,12 +37,7 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
 
         showListOfPatients();
         Log.d(TAG, "changing 1");
-        /*if(patients == null){
-            Log.d(TAG, "changing 4");
-        }*/
-        //change(patients.get(0));
         Log.d(TAG, "changing 2");
-        //showListOfPatients();
         buildRecyclerView(v);
 
         return v;
@@ -75,25 +70,8 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         if(patients == null){
             Log.d("PatientsActivity", "shit");
             patients = new ArrayList<>();
-            //Patient p = makeSamplePatient();
-            //patients.add(p);
-            //change(p);
-            //saveListOfPatients();
-            //adapter.notifyItemInserted(patients.size());
         }
     }
-
-    /*public Patient makeSamplePatient(){
-        String[] c = {"1997", "06", "18"};
-        Medication m = new Medication("Asta", 23, Day.FRIDAY);
-        List<Medication> medic = new ArrayList<>();
-        medic.add(m);
-        Doctor doc = new Doctor("Gi", "GiGo", 6555);
-        Checkup check = new Checkup(c, doc, "fuck", "shit");
-        List<Checkup> checks = new ArrayList<>();
-        checks.add(check);
-        return new Patient("Behnam", "Goudarzi", c, c, checks, medic, "male", 2, 88);
-    }*/
 
     @Override
     public void onPatientClick(int position) {
@@ -101,15 +79,6 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         intent.putExtra("selectedPatient", patients.get(position));
         startActivity(intent);
         ((Activity) getActivity()).overridePendingTransition(0, 0);
-        //Log.d(TAG, "onPatientClick: clicked" + position);
     }
 
-    /*private void change(Patient p){
-        String[] c = {"2021", "06", "18"};
-        p.getMedications().set(0, new Medication("Amoxil", 23, Day.FRIDAY));
-        p.getCheckups().set(0, new Checkup(c, new Doctor("Max", "Plank", 6555), "Eyes, mouth and thyroid", "Pupils laterally equal in size with inconspicuous direct and\n" +
-                "consensual light reaction. Mucous membrane of the mouth pink, tongue moist and without coatings. Nuchal, cervical, axillary and inguinal lymph nodes not enlarged. palpable with normal displacement. Thyroid gland not enlarged palpable, normal displacement during swallowing."));
-        Log.d(TAG, "changing 3");
-        saveListOfPatients();
-    }*/
 }

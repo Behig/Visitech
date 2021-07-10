@@ -3,15 +3,18 @@ package com.example.visitech;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -19,21 +22,33 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class PatientsActivity extends AppCompatActivity {
+public class NewMedicationActivity extends AppCompatActivity {
+    private static final String TAG = "NewMedicationActivity";
+    Intent intent;
+    private Patient patient;
+    int bedNr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patients);
+        setContentView(R.layout.activity_new_medication);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, new ListFragment(), "LIST").commit();
+        intent = getIntent();
+        patient = intent.getParcelableExtra("selectedPatient");
+        bedNr = intent.getIntExtra("bedNumber", 0);
+
+        Fragment init = new NewMedicationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedPatient", patient);
+        bundle.putInt("bedNumber", bedNr);
+        init.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_medication_big_new, init).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -42,7 +57,7 @@ public class PatientsActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectFragment = null;
 
-                    switch (item.getItemId()) {
+                    switch (item.getItemId()){
                         case R.id.nav_home:
                             selectFragment = new HomeFragment();
                             break;
@@ -55,24 +70,10 @@ public class PatientsActivity extends AppCompatActivity {
                         case R.id.nav_user:
                             selectFragment = new UserFragment();
                             break;
-                        default:
-                            selectFragment = new HomeFragment();
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, selectFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_medication_big_new, selectFragment).commit();
+                    Log.d(TAG, "changing fragment");
                     return true;
                 }
             };
-
-    @Override
-    public void onBackPressed() {
-        Fragment current = getSupportFragmentManager().findFragmentByTag("LIST");
-        if(current != null){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            this.finish();
-            overridePendingTransition(0, 0);
-        }
-        //super.onBackPressed();
-    }
 }

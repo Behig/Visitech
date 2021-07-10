@@ -44,8 +44,6 @@ public class OptionFragment extends Fragment {
         }
         checkups = (ArrayList<Checkup>) patient.getCheckups();
         medications = (ArrayList<Medication>) patient.getMedications();
-        //Toast.makeText(getActivity(), "" + patient.getCheckups().get(0).toString(), Toast.LENGTH_LONG).show();
-        //Log.d(TAG, "" + checkups.get(0).toString());
         bednr.setText("Bednumber");
         nr.setText(String.format("%d", patient.getBedNr()));
 
@@ -61,10 +59,9 @@ public class OptionFragment extends Fragment {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.single_patient_fragment_container, culFragment);
+                fragmentTransaction.replace(R.id.single_patient_fragment_container, culFragment, "CHECKUPLIST");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                //Toast.makeText(getActivity(), "" + patient.getCheckups().get(0).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -73,6 +70,7 @@ public class OptionFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MedicationActivity.class);
                 intent.putExtra("selectedMedications", medications);
+                intent.putExtra("selectedPatient", patient);
                 intent.putExtra("bedNumber", patient.getBedNr());
                 startActivity(intent);
                 ((Activity) getActivity()).overridePendingTransition(0, 0);

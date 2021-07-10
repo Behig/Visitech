@@ -120,11 +120,6 @@ public class NewCheckupFragment extends Fragment {
         if(patients == null){
             Log.d("PatientsActivity", "shit");
             patients = new ArrayList<>();
-            //Patient p = makeSamplePatient();
-            //patients.add(p);
-            //change(p);
-            //saveListOfPatients();
-            //adapter.notifyItemInserted(patients.size());
         }
     }
 }

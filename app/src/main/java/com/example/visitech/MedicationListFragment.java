@@ -52,27 +52,6 @@ public class MedicationListFragment extends Fragment implements MyMedicationAdap
         recyclerView.setAdapter(adapter);
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.top_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Fragment newCheckupFragment = new NewCheckupFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedPatientNewCheckup", patient);
-        newCheckupFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.single_patient_fragment_container, newCheckupFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-        return true;
-        //return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     public void onMedicationClick(int position) {
         Log.d(TAG, "onMedicationClick: clicked " + position);
