@@ -13,6 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * This fragment is intended to make a login possible in the future.
+ * For now it's only the layout.
+ *
+ * @author Mohamad Goudarzi Moghadam
+ */
 public class UserFragment extends Fragment {
     private Button loginbtn;
     private TextView forgot;

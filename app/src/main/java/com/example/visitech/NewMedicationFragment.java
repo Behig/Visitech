@@ -25,15 +25,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 
+/**
+ * This fragment adds a new medication to list of medications.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class NewMedicationFragment extends Fragment {
     private static final String TAG = "NewMedicationFragment";
+    /**
+     * List of patients.
+     */
     public List<Patient> patients;
+    /**
+     * The selected patient.
+     */
     private Patient patient;
+
+    // Input fields for details of a medication.
     private EditText nameOfMedic;
     private EditText dose;
     private EditText day;
     Button saveButton;
+
+    /**
+     * Index of the patient on the list of patients.
+     */
     int index = 0;
+    /**
+     * Bed number of the patient.
+     */
     int bedNr;
 
     @Nullable
@@ -41,12 +61,16 @@ public class NewMedicationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_new_medication, container, false);
 
+        // Get the patient and the bedNr from the activity.
         patient = getArguments().getParcelable("selectedPatient");
         bedNr = getArguments().getInt("bedNumber", 0);
+        // Restore the list of patients from shared preferences.
         showListOfPatients();
+
         nameOfMedic = (EditText) v.findViewById(R.id.edit_text_name_medication);
         dose = (EditText) v.findViewById(R.id.edit_text_dose);
         day = (EditText) v.findViewById(R.id.edit_text_day);
+        // Find the index of the patient on the list
         index = patients.indexOf(patient);
 
         saveButton = (Button) v.findViewById(R.id.btn_save_medication);
@@ -55,10 +79,13 @@ public class NewMedicationFragment extends Fragment {
             public void onClick(View v) {
                 Medication m = makeNewMedication();
 
+                // Add the new medication to list of medications of the patient
                 patient.getMedications().add(m);
                 Log.d(TAG, "index " + index);
+                // Set the changed patient object on the list
                 patients.set(index, patient);
                 saveListOfPatients();
+                //  Go back to the MedicationActivity
                 Intent intent = new Intent(getActivity(), MedicationActivity.class);
                 intent.putParcelableArrayListExtra("selectedMedications", (ArrayList<? extends Parcelable>) patient.getMedications());
                 intent.putExtra("bedNumber", bedNr);
@@ -71,7 +98,13 @@ public class NewMedicationFragment extends Fragment {
         return v;
     }
 
+    /**
+     * This method creates a new medication.
+     *
+     * @return A new medication.
+     */
     private Medication makeNewMedication() {
+        // Get the content of the input fields.
         String fName = nameOfMedic.getText().toString();
         double fDose = Double.parseDouble(dose.getText().toString());
         Day fDay = Day.valueOf(day.getText().toString());
@@ -79,6 +112,9 @@ public class NewMedicationFragment extends Fragment {
         return new Medication(fName, fDose, fDay);
     }
 
+    /**
+     * This method saves the list of patients in shared preferences.
+     */
     private void saveListOfPatients() {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -88,6 +124,9 @@ public class NewMedicationFragment extends Fragment {
         editor.apply();
     }
 
+    /**
+     * This method restores the list of patients in shared preferences.
+     */
     private void showListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -95,6 +134,7 @@ public class NewMedicationFragment extends Fragment {
         Type type = new TypeToken<ArrayList<Patient>>(){}.getType();
         patients = gson.fromJson(json, type);
 
+        // If the list in null, we create a new.
         if(patients == null){
             Log.d("PatientsActivity", "shit");
             patients = new ArrayList<>();

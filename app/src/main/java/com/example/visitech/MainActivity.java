@@ -10,6 +10,11 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * The first activity of the app, which is the activity of HomeFragment
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class MainActivity extends AppCompatActivity {
     Intent intent;
 
@@ -19,12 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set the bottom navigation menu.
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        // The default fragment of thia activity is the HomeFragment.
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
+    /**
+     * This object is a listener for the bottom navigation menu.
+     *
+     * We can go back to HomeFragment, NewPatientFragment, InfoFragment and UserFragment.
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -50,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
+    /**
+     * If we press back, the whole activity will finish.
+     */
     @Override
     public void onBackPressed() {
         finish();
-        //super.onBackPressed();
     }
 }

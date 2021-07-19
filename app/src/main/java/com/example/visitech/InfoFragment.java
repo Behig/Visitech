@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * A simple fragment just to give some information about the app.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class InfoFragment extends Fragment {
     @Nullable
     @Override

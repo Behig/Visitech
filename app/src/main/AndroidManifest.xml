@@ -9,11 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Visitech">
-        <activity android:name=".NewMedicationActivity"></activity>
-        <activity android:name=".MedicationActivity" />
-        <activity android:name=".SinglePatientActivity" />
-        <activity android:name=".PatientsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".NewMedicationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MedicationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SinglePatientActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PatientsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

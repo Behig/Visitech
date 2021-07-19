@@ -23,6 +23,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Fragment to show the list of patients.
+ *
+ * This fragment uses a RecyclerView and retrieves the list of patients from sharedPreferences.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class ListFragment extends Fragment implements MyAdapter.OnPatientListener {
     private static final String TAG = "ListFragment";
     public List<Patient> patients;
@@ -35,6 +42,7 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list, container,false);
 
+        // Restore the list of patients.
         showListOfPatients();
         Log.d(TAG, "changing 1");
         Log.d(TAG, "changing 2");
@@ -43,6 +51,9 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         return v;
     }
 
+    /**
+     * This method saves changes on the list of patients back to sharedPreferences.
+     */
     private void saveListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -52,6 +63,11 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         editor.apply();
     }
 
+    /**
+     * This method sets up the recyclerView for the items in the list.
+     *
+     * @param v The layout.
+     */
     private void buildRecyclerView(View v){
         recyclerView = v.findViewById(R.id.recyclerview);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -60,6 +76,9 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * This method restores the list of patients from shared preferences.
+     */
     private void showListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -73,6 +92,13 @@ public class ListFragment extends Fragment implements MyAdapter.OnPatientListene
         }
     }
 
+    /**
+     * This method specifies what will happen, when we click on each patient.
+     *
+     * In this case we go to the next activity and send the patient to that too.
+     *
+     * @param position Position of the patient in the list op patients.
+     */
     @Override
     public void onPatientClick(int position) {
         Intent intent = new Intent(getActivity(), SinglePatientActivity.class);

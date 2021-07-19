@@ -23,8 +23,16 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This fragment adds a new patient to list of patients.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class NewPatientFragment extends Fragment {
     private static final String TAG = "NewPatientFragment";
+    /**
+     * List of patients
+     */
     public List<Patient> patients;
     private Patient patient;
     private EditText firstName;
@@ -41,6 +49,7 @@ public class NewPatientFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_new, container,false);
 
+        // Restore the list of patients from shared preferences.
         showListOfPatients();
 
         firstName = (EditText) v.findViewById(R.id.edit_text_newFirstName);
@@ -56,9 +65,11 @@ public class NewPatientFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 patient = makeNewPatient();
+                // Add the new patient to the list.
                 patients.add(patient);
                 saveListOfPatients();
 
+                // Go back to PatientsActivity.
                 Intent intent = new Intent(getActivity(), PatientsActivity.class);
                 startActivity(intent);
                 ((Activity) getActivity()).overridePendingTransition(0, 0);
@@ -68,7 +79,13 @@ public class NewPatientFragment extends Fragment {
         return v;
     }
 
+    /**
+     * This method creates a new patient.
+     *
+     * @return A new patient.
+     */
     private Patient makeNewPatient() {
+        // Get the content of input fields for the details of patient.
         String pFirstName = firstName.getText().toString();
         String pLastName = lastName.getText().toString();
 
@@ -92,6 +109,9 @@ public class NewPatientFragment extends Fragment {
 
     }
 
+    /**
+     * This method saves the list of patients in shared preferences.
+     */
     private void showListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -105,6 +125,9 @@ public class NewPatientFragment extends Fragment {
         }
     }
 
+    /**
+     * This method restores the list of patients in shared preferences.
+     */
     private void saveListOfPatients(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPatients", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

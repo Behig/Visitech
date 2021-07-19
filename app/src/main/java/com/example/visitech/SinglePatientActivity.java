@@ -18,8 +18,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to show information of single patients (by default the OptionFragment).
+ */
 public class SinglePatientActivity extends AppCompatActivity {
     Intent intent;
+    /**
+     * The selcted patient.
+     */
     public Patient patient;
 
     @Override
@@ -27,12 +33,15 @@ public class SinglePatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_patient);
 
+        // Set the bottom navigation menu.
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        // Get patient from last Activity.
         intent = getIntent();
         patient = intent.getParcelableExtra("selectedPatient");
 
+        // Begin the Option Fragment.
         Fragment initFragment = new OptionFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("selectedPatient", patient);
@@ -46,6 +55,11 @@ public class SinglePatientActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This object is a listener for the bottom navigation menu.
+     *
+     * We can go back to HomeFragment, NewPatientFragment, InfoFragment and UserFragment.
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -75,13 +89,14 @@ public class SinglePatientActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // If the back stack has more than 1 element...
         if (getSupportFragmentManager().getBackStackEntryCount() >= 1) {
 
+            // Get the current fragment on single_patient_fragment_container
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.single_patient_fragment_container);
             if (f instanceof OptionFragment) {
+                // Go back to PatientsActivity
                 Intent intent = new Intent(this, PatientsActivity.class);
-                //getSupportFragmentManager().popBackStack();
-                //Toast.makeText(getApplicationContext(),"back to list of patients",Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 finish();
@@ -89,41 +104,41 @@ public class SinglePatientActivity extends AppCompatActivity {
             }
 
             if (f instanceof CheckupListFragment) {
+                // Go back to OptionFragment
                 Fragment fragment = new OptionFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("selectedPatient", patient);
                 fragment.setArguments(bundle);
-                //Toast.makeText(getApplicationContext(),"to option",Toast.LENGTH_SHORT).show();
-                //getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_patient_fragment_container, fragment).commit();
                 return;
             }
 
             if (f instanceof NewCheckupFragment) {
+                // Go back to CheckupListFragment
                 Fragment fragment = new CheckupListFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("selectedPatient", patient);
                 bundle.putInt("bedNumber", patient.getBedNr());
                 bundle.putParcelableArrayList("selectedCheckups", (ArrayList<? extends Parcelable>) patient.getCheckups());
                 fragment.setArguments(bundle);
-                //getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_patient_fragment_container, fragment).commit();
                 return;
             }
 
             if (f instanceof CheckupReportFragment) {
+                // Go back to CheckupListFragment
                 Fragment fragment = new CheckupListFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("selectedPatient", patient);
                 bundle.putInt("bedNumber", patient.getBedNr());
                 bundle.putParcelableArrayList("selectedCheckups", (ArrayList<? extends Parcelable>) patient.getCheckups());
                 fragment.setArguments(bundle);
-                //getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_patient_fragment_container, fragment).commit();
                 return;
             }
 
             if (f instanceof CheckupEmailFragment) {
+                // Just pop the element on the stack.
                 getSupportFragmentManager().popBackStack();
                 return;
             }

@@ -14,10 +14,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * This fragment shows a list of medications, which the patient should take on that day.
+ *
+ * This fragment uses a RecyclerView.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class MedicationDailyListFragment extends Fragment implements MyMedicationAdapter.OnMedicationListener{
     private static final String TAG = "MedicationDailyListFragment";
+    /**
+     * List of all medications.
+     */
     public List<Medication> medications;
+    /**
+     * List of daily medications.
+     */
     private List<Medication> medicationsDay;
+    /**
+     * Bed number of patient.
+     */
     private int bedNr;
     private RecyclerView recyclerView;
     private MyMedicationAdapter adapter;
@@ -28,10 +44,12 @@ public class MedicationDailyListFragment extends Fragment implements MyMedicatio
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_daily_medication_list, container, false);
-        //setHasOptionsMenu(true);
 
+        // Get the list of all medications from last activity.
         medications = getArguments().getParcelableArrayList("selectedMedications");
         medicationsDay = new ArrayList<>();
+
+        // Get the current weekday.
         Calendar c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_WEEK);
         Day dayOfWeek = Day.MONDAY;
@@ -59,6 +77,7 @@ public class MedicationDailyListFragment extends Fragment implements MyMedicatio
                 break;
         }
 
+        // If the weekday of a medication in medications is same as current weekday, copy it into medicationsDay.
         for(int i = 0; i < medications.size(); i++){
             if(medications.get(i).getWeekDay() == dayOfWeek) {
                 medicationsDay.add(medications.get(i));
@@ -74,6 +93,11 @@ public class MedicationDailyListFragment extends Fragment implements MyMedicatio
         return v;
     }
 
+    /**
+     * This method sets up the recyclerView for the items in the list.
+     *
+     * @param v The layout.
+     */
     private void buildRecyclerView(View v){
         recyclerView = v.findViewById(R.id.recyclerviewdailymedication);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -82,27 +106,10 @@ public class MedicationDailyListFragment extends Fragment implements MyMedicatio
         recyclerView.setAdapter(adapter);
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.top_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Fragment newCheckupFragment = new NewCheckupFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedPatientNewCheckup", patient);
-        newCheckupFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.single_patient_fragment_container, newCheckupFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-        return true;
-        //return super.onOptionsItemSelected(item);
-    }*/
-
+    /**
+     * If we click on a medication, nothing happens.
+     * @param position Position of a medication in the list.
+     */
     @Override
     public void onMedicationClick(int position) {
         Log.d(TAG, "onMedicationClick: clicked " + position);

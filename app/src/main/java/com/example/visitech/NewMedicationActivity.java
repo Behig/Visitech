@@ -24,10 +24,21 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to create new patients.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class NewMedicationActivity extends AppCompatActivity {
     private static final String TAG = "NewMedicationActivity";
     Intent intent;
+    /**
+     * The selected patient.
+     */
     private Patient patient;
+    /**
+     * Bed number of the patient.
+     */
     int bedNr;
 
     @Override
@@ -35,13 +46,16 @@ public class NewMedicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_medication);
 
+        // Set the bottom navigation menu.
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        // Get patient and bedNr from the previous activity.
         intent = getIntent();
         patient = intent.getParcelableExtra("selectedPatient");
         bedNr = intent.getIntExtra("bedNumber", 0);
 
+        // Begin the NewMedicationFragment and send patient and bedNr to it.
         Fragment init = new NewMedicationFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("selectedPatient", patient);
@@ -51,6 +65,11 @@ public class NewMedicationActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_medication_big_new, init).commit();
     }
 
+    /**
+     * This object is a listener for the bottom navigation menu.
+     *
+     * We can go back to HomeFragment, NewPatientFragment, InfoFragment and UserFragment.
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

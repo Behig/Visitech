@@ -73,6 +73,5 @@ public class PatientsActivity extends AppCompatActivity {
             this.finish();
             overridePendingTransition(0, 0);
         }
-        //super.onBackPressed();
     }
 }

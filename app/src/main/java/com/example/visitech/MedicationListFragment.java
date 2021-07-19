@@ -19,6 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * This fragment shows a list of all medications.
+ *
+ * This fragment uses a RecyclerView.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class MedicationListFragment extends Fragment implements MyMedicationAdapter.OnMedicationListener{
     private static final String TAG = "MedicationListFragment";
     public List<Medication> medications;
@@ -32,8 +39,8 @@ public class MedicationListFragment extends Fragment implements MyMedicationAdap
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_all_medication_list, container, false);
-        //setHasOptionsMenu(true);
 
+        // Get the list of all medications from last activity.
         medications = getArguments().getParcelableArrayList("selectedMedications");
         if(medications == null){
             Log.d(TAG, "medications is NULL");
@@ -44,6 +51,11 @@ public class MedicationListFragment extends Fragment implements MyMedicationAdap
         return v;
     }
 
+    /**
+     * This method sets up the recyclerView for the items in the list.
+     *
+     * @param v The layout.
+     */
     private void buildRecyclerView(View v){
         recyclerView = v.findViewById(R.id.recyclerviewmedication);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -52,6 +64,10 @@ public class MedicationListFragment extends Fragment implements MyMedicationAdap
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * If we click on a medication, nothing happens.
+     * @param position Position of a medication in the list.
+     */
     @Override
     public void onMedicationClick(int position) {
         Log.d(TAG, "onMedicationClick: clicked " + position);

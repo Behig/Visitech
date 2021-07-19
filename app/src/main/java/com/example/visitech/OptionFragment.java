@@ -22,6 +22,9 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment as option to choose between showing the list of checkups or medications of patient.
+ */
 public class OptionFragment extends Fragment {
     private static final String TAG = "OptionFragment";
     Intent intent;
@@ -38,6 +41,7 @@ public class OptionFragment extends Fragment {
         TextView bednr = (TextView) v.findViewById(R.id.bedNumber);
         TextView nr = (TextView) v.findViewById(R.id.number);
 
+        // Get selected patient from previous activity.
         Patient patient = getArguments().getParcelable("selectedPatient");
         if(patient == null){
             Log.d(TAG, "patient is NULL");
@@ -47,6 +51,7 @@ public class OptionFragment extends Fragment {
         bednr.setText("Bednumber");
         nr.setText(String.format("%d", patient.getBedNr()));
 
+        // If clicked on "Checkups", go to the CheckupListFragment.
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +70,7 @@ public class OptionFragment extends Fragment {
             }
         });
 
+        // If clicked on "Checkups", go to the CheckupListFragment.
         medic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,6 +21,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment to show the home page of app.
+ *
+ * The layout has only a button, which shows the list of patients after being clicked.
+ *
+ * @author Mohammad Goudarzi Moghadam
+ */
 public class HomeFragment extends Fragment {
 
     @Nullable
